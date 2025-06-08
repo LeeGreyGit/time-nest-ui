@@ -1,7 +1,9 @@
-export const domain =
-  process.env.NODE_ENV === 'production'
-    ? '/api'
-    : 'http://localhost:3000';
+import { Platform } from 'react-native';
+
+const localhost =
+  Platform.OS === 'android' ? 'http://10.0.2.2:8080' : 'http://localhost:8080';
+
+export const domain = process.env.NODE_ENV === 'production' ? '/api' : localhost;
 
 export const _URL = {
   WORK_LIST: `${domain}/work/list`,

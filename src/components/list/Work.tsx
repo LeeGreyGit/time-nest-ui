@@ -15,6 +15,7 @@ const WorkScreen = () => {
 
   const getWorkList = async () => {
     const response = await getWork();
+    console.log('取得結果:', response.data); // ←追加
     if (response?.data) {
       setData(response.data);
     }
@@ -38,13 +39,13 @@ const WorkScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.root}>
       <Text style={styles.header}>メモ帳</Text>
-      <TouchableOpacity onPress={() => handleRowClick({ title: '', text: '' }, false)}>
+      <TouchableOpacity onPress={() => handleRowClick({ workName: '', text: '' }, false)}>
         <Icon name="add-circle-outline" size={30} color="black" />
       </TouchableOpacity>
       {data.map((work, index) => (
         <View key={index} style={styles.workList}>
           <View style={styles.workTitle}>
-            <Text style={styles.titleText}>{work.title}</Text>
+            <Text style={styles.titleText}>{work.workName}</Text>
             <View style={styles.iconRow}>
               <TouchableOpacity onPress={() => handleRowClick(work, true)}>
                 <Icon name="edit" size={20} color="gray" />

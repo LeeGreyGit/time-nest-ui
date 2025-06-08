@@ -27,7 +27,7 @@ const DetailScreen = () => {
   const route = useRoute<DetailScreenRouteProp>();
   const { work, isEdit } = route.params;
 
-  const [title, setTitle] = useState(work.title);
+  const [title, setTitle] = useState(work.workName);
   const [text, setText] = useState(work.text);
 
   const handleSubmit = async () => {
