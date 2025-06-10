@@ -27,15 +27,15 @@ const DetailScreen = () => {
   const route = useRoute<DetailScreenRouteProp>();
   const { work, isEdit } = route.params;
 
-  const [title, setTitle] = useState(work.workName);
-  const [text, setText] = useState(work.text);
+  const [workName, setWorkName] = useState(work.workName);
+  const [workNote, setWorkNote] = useState(work.workNote);
 
   const handleSubmit = async () => {
     try {
       if (isEdit) {
-        await postUpdateApi({ id: work.id, title, text });
+        await postUpdateApi({ workId: work.workId, workName, workNote });
       } else {
-        await postCreateApi({ title, text });
+        await postCreateApi({ workName, workNote });
       }
       navigation.goBack();
     } catch (error) {
@@ -54,16 +54,16 @@ const DetailScreen = () => {
       <Text style={styles.label}>タイトル</Text>
       <TextInput
         style={styles.input}
-        value={title}
-        onChangeText={setTitle}
+        value={workName}
+        onChangeText={setWorkName}
         placeholder="タイトルを入力"
       />
 
       <Text style={styles.label}>内容</Text>
       <TextInput
         style={[styles.input, styles.textarea]}
-        value={text}
-        onChangeText={setText}
+        value={workNote}
+        onChangeText={setWorkNote}
         placeholder="内容を入力"
         multiline
         numberOfLines={5}

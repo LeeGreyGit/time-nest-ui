@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getWork, postDeleteApi } from '../../api/callApi';
@@ -7,6 +7,8 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../../App';
 import { useStyles } from './useStyles';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
 
 const WorkScreen = () => {
   const styles = useStyles();
@@ -15,31 +17,32 @@ const WorkScreen = () => {
 
   const getWorkList = async () => {
     const response = await getWork();
-    console.log('取得結果:', response.data); // ←追加
+    console.log('取得結果:', response.data);
     if (response?.data) {
       setData(response.data);
     }
   };
 
-  useEffect(() => {
-    getWorkList();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getWorkList();
+    }, [])
+  );
 
   const handleRowClick = (work: WorkData, isEdit: boolean) => {
     navigation.navigate('Detail', { work, isEdit });
   };
 
   const handleDelete = async (work: WorkData) => {
-    if (work.id) {
-      await postDeleteApi(work.id);
+    if (work.workId) {
+      await postDeleteApi(work.workId);
       getWorkList();
     }
   };
 
   return (
     <ScrollView contentContainerStyle={styles.root}>
-      <Text style={styles.header}>メモ帳</Text>
-      <TouchableOpacity onPress={() => handleRowClick({ workName: '', text: '' }, false)}>
+      <TouchableOpacity onPress={() => handleRowClick({ workName: '', workNote: '' }, false)}>
         <Icon name="add-circle-outline" size={30} color="black" />
       </TouchableOpacity>
       {data.map((work, index) => (
@@ -55,7 +58,7 @@ const WorkScreen = () => {
               </TouchableOpacity>
             </View>
           </View>
-          <Text style={styles.workText}>{work.text}</Text>
+          <Text style={styles.workText}>{work.workNote}</Text>
         </View>
       ))}
     </ScrollView>

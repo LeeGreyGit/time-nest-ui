@@ -1,5 +1,5 @@
 export interface WorkData {
-  id?: number;
+  workId?: number;
   workName: string;
-  text: string;
+  workNote: string;
 }

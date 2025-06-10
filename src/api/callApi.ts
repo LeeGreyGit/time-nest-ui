@@ -29,22 +29,11 @@ export const postCreateApi = async (param: any): Promise<any> => {
   }
 };
 
-export const postDeleteApi = async (id: number): Promise<any> => {
-  console.log(id);
+export const postDeleteApi = async (workId: number): Promise<any> => {
+  console.log(workId);
   try {
     const response = await axios.post(
-      _URL.WORK_DELETE.replace(':id', id.toString())
-    );
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
-};
-export const postDeleteApi2 = async (id: number): Promise<any> => {
-  console.log(id);
-  try {
-    const response = await axios.post(
-      `${_URL.WORK_DELETE_2}/${id}`
+      _URL.WORK_DELETE.replace(':id', workId.toString())
     );
     return response;
   } catch (error) {

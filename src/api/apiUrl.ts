@@ -10,5 +10,4 @@ export const _URL = {
   WORK_UPDATE: `${domain}/work/update`,
   WORK_CREATE: `${domain}/work/create`,
   WORK_DELETE: `${domain}/work/delete/:id`,
-  WORK_DELETE_2: `${domain}/work/delete`,
 };
